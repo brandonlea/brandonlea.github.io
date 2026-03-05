@@ -1,0 +1,33 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 650ms ease, transform 650ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::before {
+  content: "";
+  position: absolute;
+  inset: -200%;
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.22) 45%,
+    transparent 55%
+  );
+  transform: translateX(-50%);
+  transition: transform 800ms ease;
+}
+
+.card-shine:hover::before {
+  transform: translateX(50%);
+}

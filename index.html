@@ -8,76 +8,15 @@
       name="description"
       content="Software developer portfolio showcasing projects, skills, and professional experience."
     />
+    <script src="js/script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              ink: "#0f172a",
-              steel: "#1e293b",
-              mist: "#f8fafc",
-              accent: "#0891b2",
-              accent2: "#14b8a6",
-              warm: "#f59e0b",
-            },
-            fontFamily: {
-              display: ["Sora", "ui-sans-serif", "system-ui"],
-              body: ["Manrope", "ui-sans-serif", "system-ui"],
-            },
-            boxShadow: {
-              soft: "0 12px 50px -18px rgba(15, 23, 42, 0.45)",
-            },
-            keyframes: {
-              float: {
-                "0%, 100%": { transform: "translateY(0)" },
-                "50%": { transform: "translateY(-10px)" },
-              },
-            },
-            animation: {
-              float: "float 6s ease-in-out infinite",
-            },
-          },
-        },
-      };
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .reveal {
-        opacity: 0;
-        transform: translateY(24px);
-        transition: opacity 650ms ease, transform 650ms ease;
-      }
-      .reveal.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .card-shine {
-        position: relative;
-        overflow: hidden;
-      }
-      .card-shine::before {
-        content: "";
-        position: absolute;
-        inset: -200%;
-        background: linear-gradient(
-          120deg,
-          transparent 35%,
-          rgba(255, 255, 255, 0.22) 45%,
-          transparent 55%
-        );
-        transform: translateX(-50%);
-        transition: transform 800ms ease;
-      }
-      .card-shine:hover::before {
-        transform: translateX(50%);
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body class="bg-mist font-body text-ink antialiased">
     <div
@@ -339,40 +278,5 @@
       </div>
     </footer>
 
-    <script>
-      const PROFILE = {
-        github: "https://github.com/YOUR_GITHUB_USERNAME",
-        linkedin: "https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME",
-        resume: "resume.pdf",
-        projects: [
-          "https://github.com/YOUR_GITHUB_USERNAME/project-one",
-          "https://github.com/YOUR_GITHUB_USERNAME/project-two",
-          "https://github.com/YOUR_GITHUB_USERNAME/project-three",
-        ],
-      };
-
-      document.querySelectorAll("[data-github]").forEach((a) => (a.href = PROFILE.github));
-      document.querySelectorAll("[data-linkedin]").forEach((a) => (a.href = PROFILE.linkedin));
-      document.querySelectorAll("[data-resume]").forEach((a) => (a.href = PROFILE.resume));
-      document.querySelectorAll("[data-project-url]").forEach((a, index) => {
-        a.href = PROFILE.projects[index] || PROFILE.github;
-      });
-
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.18 }
-      );
-
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    </script>
   </body>
 </html>
