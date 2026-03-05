@@ -280,8 +280,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
       projectsStatus.textContent = `Showing ${visibleRepos.length} public GitHub project${visibleRepos.length > 1 ? "s" : ""}.`;
     } catch (error) {
-      projectsStatus.textContent =
-        "Could not load projects from GitHub automatically right now. Please refresh in a moment.";
+      projectsContainer.innerHTML = `
+        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-soft">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-accent2">GitHub Projects</p>
+          <h3 class="mt-2 font-display text-xl font-bold">View My Repositories</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-300">
+            GitHub API is currently unavailable or rate-limited. Use the link below to view all projects.
+          </p>
+          <a
+            href="${PROFILE.github}?tab=repositories"
+            target="_blank"
+            rel="noreferrer"
+            class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-accent hover:text-cyan-700"
+          >
+            <i class="fa-brands fa-github"></i>Open Repositories →
+          </a>
+        </article>
+      `;
+      projectsStatus.textContent = "Live project feed unavailable right now.";
     }
   };
 
