@@ -2,11 +2,11 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0f172a",
-        steel: "#1e293b",
-        mist: "#f8fafc",
-        accent: "#0891b2",
-        accent2: "#14b8a6",
+        ink: "#0b1120",
+        steel: "#1f2937",
+        mist: "#020617",
+        accent: "#06b6d4",
+        accent2: "#2dd4bf",
         warm: "#f59e0b",
       },
       fontFamily: {
