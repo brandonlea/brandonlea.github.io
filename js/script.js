@@ -38,19 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
     repoName: "brandonlea.github.io",
     repoBranch: "main",
     certificatesPath: "certificates",
-    projects: [
-      "https://github.com/brandonlea",
-      "https://github.com/brandonlea",
-      "https://github.com/brandonlea",
-    ],
   };
 
   document.querySelectorAll("[data-github]").forEach((a) => (a.href = PROFILE.github));
   document.querySelectorAll("[data-linkedin]").forEach((a) => (a.href = PROFILE.linkedin));
   document.querySelectorAll("[data-resume]").forEach((a) => (a.href = PROFILE.resume));
-  document.querySelectorAll("[data-project-url]").forEach((a, index) => {
-    a.href = PROFILE.projects[index] || PROFILE.github;
-  });
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -81,6 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const certificatesContainer = document.getElementById("certificates-list");
   const certificatesStatus = document.getElementById("certificates-status");
+  const projectsContainer = document.getElementById("projects-list");
+  const projectsStatus = document.getElementById("projects-status");
 
   const toTitle = (filename) =>
     filename
@@ -165,5 +159,108 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const formatDate = (isoDate) =>
+    new Date(isoDate).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+
+  const buildProjectCard = (repo) => {
+    const card = document.createElement("article");
+    card.className =
+      "reveal card-shine rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-soft transition hover:-translate-y-1";
+
+    const language = repo.language || "Repository";
+    const description = repo.description || "No description provided for this project yet.";
+
+    const label = document.createElement("p");
+    label.className = "text-xs font-semibold uppercase tracking-[0.2em] text-accent2";
+    label.textContent = language;
+
+    const title = document.createElement("h3");
+    title.className = "mt-2 font-display text-xl font-bold";
+    title.textContent = repo.name;
+
+    const desc = document.createElement("p");
+    desc.className = "mt-3 text-sm leading-relaxed text-slate-300";
+    desc.textContent = description;
+
+    const meta = document.createElement("div");
+    meta.className = "mt-4 flex flex-wrap gap-2 text-xs";
+
+    const stars = document.createElement("span");
+    stars.className = "rounded-full bg-slate-800 px-2 py-1 font-semibold";
+    stars.textContent = `★ ${repo.stargazers_count}`;
+
+    const forks = document.createElement("span");
+    forks.className = "rounded-full bg-slate-800 px-2 py-1 font-semibold";
+    forks.textContent = `Forks ${repo.forks_count}`;
+
+    const updated = document.createElement("span");
+    updated.className = "rounded-full bg-slate-800 px-2 py-1 font-semibold";
+    updated.textContent = `Updated ${formatDate(repo.updated_at)}`;
+
+    meta.append(stars, forks, updated);
+
+    const link = document.createElement("a");
+    link.href = repo.html_url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.className = "mt-5 inline-flex items-center gap-2 text-sm font-bold text-accent hover:text-cyan-700";
+
+    const linkIcon = document.createElement("i");
+    linkIcon.className = "fa-brands fa-github";
+    link.appendChild(linkIcon);
+    link.append("View on GitHub →");
+
+    card.append(label, title, desc, meta, link);
+
+    return card;
+  };
+
+  const loadProjects = async () => {
+    if (!projectsContainer || !projectsStatus) return;
+
+    projectsStatus.textContent = "Loading GitHub repositories...";
+
+    try {
+      let page = 1;
+      const allRepos = [];
+
+      while (true) {
+        const reposUrl = `https://api.github.com/users/${PROFILE.repoOwner}/repos?sort=updated&direction=desc&per_page=100&page=${page}`;
+        const response = await fetch(reposUrl);
+        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+
+        const repos = await response.json();
+        if (!Array.isArray(repos) || repos.length === 0) break;
+
+        allRepos.push(...repos);
+        page += 1;
+      }
+
+      const visibleRepos = allRepos
+        .filter((repo) => !repo.private)
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+      if (visibleRepos.length === 0) {
+        projectsStatus.textContent = "No public GitHub repositories found.";
+        return;
+      }
+
+      projectsContainer.innerHTML = "";
+      visibleRepos.forEach((repo) => {
+        projectsContainer.appendChild(buildProjectCard(repo));
+      });
+
+      projectsStatus.textContent = `Showing ${visibleRepos.length} public GitHub project${visibleRepos.length > 1 ? "s" : ""}.`;
+    } catch (error) {
+      projectsStatus.textContent =
+        "Could not load projects from GitHub automatically right now. Please refresh in a moment.";
+    }
+  };
+
+  loadProjects();
   loadCertificates();
 });
