@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     repoName: "brandonlea.github.io",
     repoBranch: "main",
     certificatesPath: "certificates",
+    localCertificates: ["certificates/software-development-level-3.pdf"],
   };
 
   document.querySelectorAll("[data-github]").forEach((a) => (a.href = PROFILE.github));
@@ -131,6 +132,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const localCertificateEntries = () =>
+    PROFILE.localCertificates.map((path) => {
+      const name = path.split("/").pop() || path;
+      return {
+        name,
+        html_url: path,
+        download_url: path,
+      };
+    });
+
   const loadCertificates = async () => {
     if (!certificatesContainer || !certificatesStatus) return;
     certificatesStatus.textContent = "Loading certificate files...";
@@ -147,6 +158,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .sort((a, b) => a.name.localeCompare(b.name));
 
       if (pdfs.length === 0) {
+        const localEntries = localCertificateEntries();
+        if (localEntries.length > 0) {
+          renderCertificates(localEntries);
+          certificatesStatus.textContent = `Showing ${localEntries.length} certificate${localEntries.length > 1 ? "s" : ""} from local files.`;
+          return;
+        }
         certificatesStatus.textContent =
           "No PDF certificates found yet. Add PDF files to certificates/ and refresh.";
         return;
@@ -155,6 +172,12 @@ document.addEventListener("DOMContentLoaded", () => {
       renderCertificates(pdfs);
       certificatesStatus.textContent = `${pdfs.length} certificate${pdfs.length > 1 ? "s" : ""} loaded from certificates/.`;
     } catch (error) {
+      const localEntries = localCertificateEntries();
+      if (localEntries.length > 0) {
+        renderCertificates(localEntries);
+        certificatesStatus.textContent = `Showing ${localEntries.length} certificate${localEntries.length > 1 ? "s" : ""} from local files.`;
+        return;
+      }
       certificatesStatus.textContent =
         "Could not load certificates automatically. Check that certificates/ exists and is public.";
     }
