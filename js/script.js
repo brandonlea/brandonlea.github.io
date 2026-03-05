@@ -54,19 +54,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.18 }
-  );
+  if ("IntersectionObserver" in window) {
+    const revealElements = document.querySelectorAll(".reveal");
+    revealElements.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(24px)";
+    });
 
-  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "";
+            entry.target.style.transform = "";
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+  }
 
   const certificatesContainer = document.getElementById("certificates-list");
   const certificatesStatus = document.getElementById("certificates-status");
