@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body class="bg-slate-950 font-body text-slate-100 antialiased">
-    <div
-      class="fixed inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top,_#1e3a8a,_#020617_58%)]"
-    ></div>
+    <div class="background-mesh pointer-events-none fixed inset-0 -z-30"></div>
+    <div class="background-grid pointer-events-none fixed inset-0 -z-20"></div>
+    <div class="background-vignette pointer-events-none fixed inset-0 -z-10"></div>
     <div
       class="fixed -left-14 top-24 -z-10 h-44 w-44 rounded-full bg-accent/20 blur-3xl animate-float"
     ></div>
@@ -40,6 +40,7 @@
         <a href="#" class="font-display text-lg font-bold tracking-tight">Brandon-Lea Price</a>
         <div class="hidden items-center gap-6 text-sm font-semibold sm:flex">
           <a href="#projects" class="transition hover:text-accent">Projects</a>
+          <a href="#tech-stack" class="transition hover:text-accent">Tech Stack</a>
           <a href="#certificates" class="transition hover:text-accent">Certificates</a>
           <a href="#about" class="transition hover:text-accent">About</a>
           <a href="#contact" class="transition hover:text-accent">Contact</a>
@@ -228,15 +229,70 @@
       </section>
 
       <section id="about" class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-        <div class="reveal rounded-3xl bg-ink p-8 text-white sm:p-10">
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">About Me</p>
-          <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Practical developer with a product mindset.
-          </h2>
-          <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
-            I build websites that are fast, responsive, and easy to maintain. I enjoy turning ideas
-            into polished products and writing clean code that scales as projects grow.
-          </p>
+        <div class="reveal rounded-3xl border border-cyan-500/20 bg-ink/90 p-8 text-white shadow-soft sm:p-10">
+          <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">About Me</p>
+              <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Building reliable products with clean code and clear UX.
+              </h2>
+              <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
+                I am a software developer focused on modern website applications. After completing my
+                Level 5 Website Applications Development Diploma, I have been building practical projects
+                that combine solid frontend design with scalable backend thinking.
+              </p>
+              <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
+                My approach is simple: ship fast, keep code maintainable, and design interfaces that feel
+                professional across desktop and mobile.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-slate-700 bg-slate-900/80 p-6">
+              <h3 class="font-display text-xl font-bold">What I Bring</h3>
+              <ul class="mt-4 space-y-3 text-sm text-slate-300">
+                <li class="flex items-start gap-3">
+                  <i class="fa-solid fa-check mt-1 text-cyan-300"></i>Responsive, accessible, and polished UI
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="fa-solid fa-check mt-1 text-cyan-300"></i>Strong JavaScript fundamentals and API work
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="fa-solid fa-check mt-1 text-cyan-300"></i>Structured, maintainable project architecture
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="fa-solid fa-check mt-1 text-cyan-300"></i>Motivated junior developer ready for impact
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tech-stack" class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div class="reveal mb-8">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent2">Skills & Tools</p>
+          <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl">My Tech Stack</h2>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <article class="reveal rounded-2xl border border-slate-800 bg-slate-900/85 p-6">
+            <p class="text-2xl text-cyan-300"><i class="fa-solid fa-display"></i></p>
+            <h3 class="mt-3 font-display text-xl font-bold">Frontend</h3>
+            <p class="mt-2 text-sm text-slate-300">HTML5, CSS3, Tailwind CSS, JavaScript, Responsive Design</p>
+          </article>
+          <article class="reveal rounded-2xl border border-slate-800 bg-slate-900/85 p-6">
+            <p class="text-2xl text-teal-300"><i class="fa-solid fa-server"></i></p>
+            <h3 class="mt-3 font-display text-xl font-bold">Backend</h3>
+            <p class="mt-2 text-sm text-slate-300">Node.js, Express, REST APIs, Authentication flows</p>
+          </article>
+          <article class="reveal rounded-2xl border border-slate-800 bg-slate-900/85 p-6">
+            <p class="text-2xl text-indigo-300"><i class="fa-solid fa-database"></i></p>
+            <h3 class="mt-3 font-display text-xl font-bold">Data</h3>
+            <p class="mt-2 text-sm text-slate-300">SQL, database design basics, CRUD operations</p>
+          </article>
+          <article class="reveal rounded-2xl border border-slate-800 bg-slate-900/85 p-6">
+            <p class="text-2xl text-amber-300"><i class="fa-solid fa-code-branch"></i></p>
+            <h3 class="mt-3 font-display text-xl font-bold">Workflow</h3>
+            <p class="mt-2 text-sm text-slate-300">Git, GitHub, debugging, deployment with GitHub Pages</p>
+          </article>
         </div>
       </section>
 
