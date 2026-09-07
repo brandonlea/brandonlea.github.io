@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Subtle radial glow behind the monogram -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#090a0f" />
+    </radialGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Base -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGlow)" />
+  <!-- Subtle Modern Border -->
+  <rect width="62" height="62" x="1" y="1" rx="15" fill="none" stroke="url(#borderGrad)" stroke-width="1.5" />
+  <!-- Accent Status Dot (matching the "Available for freelance" indicator) -->
+  <circle cx="50" cy="14" r="3.5" fill="#3b82f6" />
+  <circle cx="50" cy="14" r="6" fill="#3b82f6" opacity="0.25" />
+  <!-- Monogram: BP -->
+  <text
+    x="29"
+    y="43"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    font-size="28"
+    font-weight="800"
+    letter-spacing="-1.5"
+    fill="#ffffff">
+    B<tspan fill="#3b82f6">P</tspan>
+  </text>
+</svg>
